@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const pool = require("../db");
 const jwtGenerator = require("../utils/jwtGenerator");
+
+// register route
 router.post("/register", async (req, res) => {
   try {
     // destructure req.body (name , email, password)
@@ -36,4 +38,33 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// login route
+router.post("/login", async (req, res) => {
+  try {
+    // desstructure req.body
+    const { email, password } = req.body;
+    // check if user does not exists (if not throw error)
+    const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
+      email,
+    ]);
+    if (user.rows.length === 0) {
+      return res.status(401).json("Password or Email is incorrect");
+    }
+    // check if incoming password is the same with the datdabase password
+    const validPassword = await bcrypt.compare(
+      password,
+      user.rows[0].user_password
+    );
+    if (!validPassword) {
+      return res.status(401).json("password or Email in incorrect");
+    }
+
+    // give them a jwt token
+    const token = jwtGenerator(user.rows[0].user_id);
+    res.json({ token });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("server Error");
+  }
+});
 module.exports = router;
