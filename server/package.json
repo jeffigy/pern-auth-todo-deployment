@@ -1,5 +1,5 @@
 {
-  "name": "pern-auth-2",
+  "name": "server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
