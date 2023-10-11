@@ -20,6 +20,6 @@ module.exports = async (req, res, next) => {
     req.user = payload.user;
     next();
   } catch (error) {
-    res.status(401).json({ msg: "Not Authorize" });
+    res.status(403).json({ msg: "Not Authorize" });
   }
 };
