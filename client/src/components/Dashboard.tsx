@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 type DashboardProps = {
   [x: string]: any;
   setAuth: (bool: boolean) => void;
 };
 
-const Dashboard: React.FC<DashboardProps> = () => {
-  return <div>dashboard</div>;
+const Dashboard: React.FC<DashboardProps> = ({ setAuth }) => {
+  const [name, setName] = useState("");
+
+  async function getName() {
+    try {
+      const response = await fetch("http://localhost:5000/dashboard/", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+
+      const parseRes = await response.json();
+      setName(parseRes.user_name);
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  }
+  const logOut = (e: any) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setAuth(false);
+  };
+
+  useEffect(() => {
+    getName();
+  }, []);
+
+  return (
+    <div className="flex-col mx-auto ">
+      <p>{name}</p>
+      <Button className="bg-blue-600" onClick={(e) => logOut(e)}>
+        Logout
+      </Button>
+    </div>
+  );
 };
 export default Dashboard;
