@@ -2,7 +2,7 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App(props: any) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -10,6 +10,25 @@ function App(props: any) {
     setIsAuthenticated(bool);
   };
   const navigate = useNavigate();
+
+  async function isAuth() {
+    try {
+      const response = await fetch("http://localhost:5000/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+      const parseRes = await response.json();
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      // console.log(parseRes);
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(() => {
+    isAuth();
+  }, []);
+
   return (
     <Routes>
       <Route
