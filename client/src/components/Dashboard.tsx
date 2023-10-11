@@ -1,8 +1,11 @@
 import React from "react";
 
-type DashboardProps = {};
+type DashboardProps = {
+  [x: string]: any;
+  setAuth: (bool: boolean) => void;
+};
 
 const Dashboard: React.FC<DashboardProps> = () => {
-  return <div>Have a good coding</div>;
+  return <div>dashboard</div>;
 };
 export default Dashboard;

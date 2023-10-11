@@ -1,8 +1,11 @@
 import React from "react";
 
-type RegisterProps = {};
+type RegisterProps = {
+  [x: string]: any;
+  setAuth: (bool: boolean) => void;
+};
 
 const Register: React.FC<RegisterProps> = () => {
-  return <div>Have a good coding</div>;
+  return <div>register</div>;
 };
 export default Register;
