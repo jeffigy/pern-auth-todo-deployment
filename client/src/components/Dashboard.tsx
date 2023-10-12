@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 type DashboardProps = {
   [x: string]: any;
@@ -7,6 +8,7 @@ type DashboardProps = {
 };
 
 const Dashboard: React.FC<DashboardProps> = ({ setAuth }) => {
+  const { toast } = useToast();
   const [name, setName] = useState("");
 
   async function getName() {
@@ -26,6 +28,9 @@ const Dashboard: React.FC<DashboardProps> = ({ setAuth }) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setAuth(false);
+    toast({
+      title: "Logged out Successfully",
+    });
   };
 
   useEffect(() => {

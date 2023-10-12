@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useToast } from "@/components/ui/use-toast";
 type RegisterProps = {
   [x: string]: any;
   setAuth: (bool: boolean) => void;
 };
 
 const Register: React.FC<RegisterProps> = ({ setAuth }) => {
+  const { toast } = useToast();
   const [inputs, setinputs] = useState({
     email: "",
     password: "",
@@ -27,8 +28,19 @@ const Register: React.FC<RegisterProps> = ({ setAuth }) => {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      localStorage.setItem("token", parseRes.token);
-      setAuth(true);
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        setAuth(true);
+        toast({
+          title: "Register Successfully",
+        });
+      } else {
+        setAuth(false);
+        toast({
+          title: `${parseRes}`,
+          variant: "destructive",
+        });
+      }
     } catch (err: any) {
       console.error(err.message);
     }

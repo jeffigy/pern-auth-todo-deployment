@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useToast } from "@/components/ui/use-toast";
 type LoginProps = {
   [x: string]: any;
   setAuth: (bool: boolean) => void;
 };
 
 const Login: React.FC<LoginProps> = ({ setAuth }) => {
+  const { toast } = useToast();
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -27,9 +28,19 @@ const Login: React.FC<LoginProps> = ({ setAuth }) => {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      localStorage.setItem("token", parseRes.token);
-      // console.log(parseRes);
-      setAuth(true);
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        setAuth(true);
+        toast({
+          title: "Logged in Successfully",
+        });
+      } else {
+        setAuth(false);
+        toast({
+          title: "Password or email is incorrect",
+          variant: "destructive",
+        });
+      }
     } catch (err: any) {
       console.error(err.message);
     }

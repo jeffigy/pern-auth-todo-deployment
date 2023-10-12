@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { useEffect, useState } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 function App(props: any) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,38 +31,41 @@ function App(props: any) {
   }, []);
 
   return (
-    <Routes>
-      <Route
-        path="/login"
-        element={
-          !isAuthenticated ? (
-            <Login {...props} setAuth={setAuth} />
-          ) : (
-            <Navigate to="/dashboard" replace={true} />
-          )
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          !isAuthenticated ? (
-            <Register {...props} setAuth={setAuth} />
-          ) : (
-            <Navigate to="/dashboard" replace={true} />
-          )
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          isAuthenticated ? (
-            <Dashboard {...props} setAuth={setAuth} />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-    </Routes>
+    <>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            !isAuthenticated ? (
+              <Login {...props} setAuth={setAuth} />
+            ) : (
+              <Navigate to="/dashboard" replace={true} />
+            )
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            !isAuthenticated ? (
+              <Register {...props} setAuth={setAuth} />
+            ) : (
+              <Navigate to="/dashboard" replace={true} />
+            )
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            isAuthenticated ? (
+              <Dashboard {...props} setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+      </Routes>
+      <Toaster />
+    </>
   );
 }
 
