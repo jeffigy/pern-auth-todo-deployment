@@ -1,9 +1,10 @@
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
+import LandingPage from "./components/LandingPage";
 
 function App(props: any) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,6 +34,7 @@ function App(props: any) {
   return (
     <>
       <Routes>
+        <Route path="/" element={!isAuthenticated ? <LandingPage /> : <Navigate to="/dashboard" replace={true} />} />
         <Route
           path="/login"
           element={

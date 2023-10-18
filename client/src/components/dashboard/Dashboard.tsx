@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
 type DashboardProps = {
