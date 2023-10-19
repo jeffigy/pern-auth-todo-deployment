@@ -15,9 +15,10 @@ interface EditTodoProps {
         description: string;
         todo_id: number;
     };
+    setTodosChange: (bool: boolean) => void;
 }
 
-const EditTodo: React.FC<EditTodoProps> = ({ todo }) => {
+const EditTodo: React.FC<EditTodoProps> = ({ todo, setTodosChange }) => {
     const [open, setOpen] = useState(false);
     const [description, setDescription] = useState(todo.description);
     const handleOpen = () => setOpen(!open);
@@ -25,12 +26,20 @@ const EditTodo: React.FC<EditTodoProps> = ({ todo }) => {
     async function editText(id: number) {
         try {
             const body = { description };
-            const res = await fetch(`http://localhost:5000/todos/${id}`, {
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("token", localStorage.token);
+
+            const res = await fetch(`http://localhost:5000/dashboard/todos/${id}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: myHeaders,
                 body: JSON.stringify(body),
             });
-            window.location.reload();
+            setTodosChange(true);
+            //close modal
+            handleOpen();
+
+            // window.location.reload();
         } catch (err: any) {
             console.error(err.message);
         }

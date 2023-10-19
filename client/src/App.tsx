@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { Route, Routes, Navigate, } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -11,7 +11,6 @@ function App(props: any) {
   const setAuth = (bool: boolean) => {
     setIsAuthenticated(bool);
   };
-  const navigate = useNavigate();
 
   async function isAuth() {
     try {

@@ -51,14 +51,16 @@ const Dashboard: React.FC<DashboardProps> = ({ setAuth }) => {
 
   return (
     <div className="flex-col mx-auto p-10 ">
-      <div className="flex justify-end">
+
+      <div className="flex justify-between mb-5 ">
+        <h1 className="text-3xl font-bold">Welcome back {name}</h1>
         <Button onClick={(e) => logOut(e)}>Log out</Button>
       </div>
       <div className="flex">
         <InputTodo setTodosChange={setTodosChange} />
       </div>
       <div className="flex">
-        <ListTodos allTodos={allTodos} />
+        <ListTodos allTodos={allTodos} setTodosChange={setTodosChange} />
       </div>
     </div>
   );

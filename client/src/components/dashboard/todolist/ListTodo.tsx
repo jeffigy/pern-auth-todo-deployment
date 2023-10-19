@@ -4,14 +4,15 @@ import EditTodo from "./EditTodo";
 
 type ListTodosProps = {
     allTodos: any;
+    setTodosChange: (bool: boolean) => void;
 };
 
 
 const TABLE_HEAD = ["Description", "", ""];
 
-const ListTodos: React.FC<ListTodosProps> = ({ allTodos }) => {
+const ListTodos: React.FC<ListTodosProps> = ({ allTodos, setTodosChange }) => {
     const [todos, setTodos] = useState([]);
-    console.log(allTodos);
+    // console.log(allTodos);
 
 
     //* delete todo
@@ -32,7 +33,7 @@ const ListTodos: React.FC<ListTodosProps> = ({ allTodos }) => {
         setTodos(allTodos);
     }, [allTodos]);
 
-    console.log(todos);
+    // console.log(todos);
 
     // console.log(todos);
     return (
@@ -62,6 +63,7 @@ const ListTodos: React.FC<ListTodosProps> = ({ allTodos }) => {
                             <td>{todo.description}</td>
                             <td>
                                 <EditTodo
+                                    setTodosChange={setTodosChange}
                                     todo={{
                                         description: todo.description,
                                         todo_id: todo.todo_id,
