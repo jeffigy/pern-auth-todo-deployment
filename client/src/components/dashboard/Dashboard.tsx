@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import InputTodo from "./todolist/InputTodo";
+import ListTodos from "./todolist/ListTodo";
 
 type DashboardProps = {
   [x: string]: any;
@@ -10,39 +12,54 @@ type DashboardProps = {
 const Dashboard: React.FC<DashboardProps> = ({ setAuth }) => {
   const { toast } = useToast();
   const [name, setName] = useState("");
+  const [allTodos, setAllTodos] = useState([]);
+  const [todosChange, setTodosChange] = useState(false);
 
-  async function getName() {
+  const getProfile = async () => {
     try {
-      const response = await fetch("http://localhost:5000/dashboard/", {
+      const res = await fetch("http://localhost:5000/dashboard/", {
         method: "GET",
         headers: { token: localStorage.token },
       });
 
-      const parseRes = await response.json();
-      setName(parseRes.user_name);
-    } catch (error: any) {
-      console.error(error.message);
+      const parseData = await res.json();
+
+      setAllTodos(parseData);
+
+      setName(parseData[0].user_name);
+      // console.log(parseData)
+    } catch (err: any) {
+      console.error(err.message);
     }
-  }
-  const logOut = (e: any) => {
+  };
+
+  const logOut = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setAuth(false);
     toast({
-      title: "Logged out Successfully",
+      title: "Logged out",
+      description: "You have been logged out",
+      duration: 5000,
     });
   };
 
   useEffect(() => {
-    getName();
-  }, []);
+    getProfile();
+    setTodosChange(false);
+  }, [todosChange]);
 
   return (
-    <div className="flex-col mx-auto ">
-      <p>{name}</p>
-      <Button className="bg-blue-600" onClick={(e) => logOut(e)}>
-        Logout
-      </Button>
+    <div className="flex-col mx-auto p-10 ">
+      <div className="flex justify-end">
+        <Button onClick={(e) => logOut(e)}>Log out</Button>
+      </div>
+      <div className="flex">
+        <InputTodo setTodosChange={setTodosChange} />
+      </div>
+      <div className="flex">
+        <ListTodos allTodos={allTodos} />
+      </div>
     </div>
   );
 };
