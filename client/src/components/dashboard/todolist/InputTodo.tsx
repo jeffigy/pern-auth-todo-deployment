@@ -19,7 +19,7 @@ const InputTodo: React.FC<InputTodoProps> = ({ setTodosChange }) => {
                 headers: myHeaders,
                 body: JSON.stringify(body),
             });
-            const parseRes = await response.json();
+            await response.json();
             setTodosChange(true);
             setDescription("");
             // console.log(parseRes);

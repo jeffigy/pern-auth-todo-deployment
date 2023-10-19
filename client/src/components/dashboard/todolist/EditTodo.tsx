@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import {
-    Button as MaterialButton,
     Dialog as MaterialDialog,
     DialogHeader as MaterialDialogHeader,
     DialogBody as MaterialDialogBody,
@@ -30,7 +29,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ todo, setTodosChange }) => {
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("token", localStorage.token);
 
-            const res = await fetch(`http://localhost:5000/dashboard/todos/${id}`, {
+            await fetch(`http://localhost:5000/dashboard/todos/${id}`, {
                 method: "PUT",
                 headers: myHeaders,
                 body: JSON.stringify(body),
