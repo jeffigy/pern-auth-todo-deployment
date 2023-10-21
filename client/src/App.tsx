@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate, } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -19,7 +19,8 @@ function App(props: any) {
         headers: { token: localStorage.token },
       });
       const parseRes = await response.json();
-      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      // parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      setIsAuthenticated(parseRes === true);
       // console.log(parseRes);
     } catch (err: any) {
       console.error(err.message);
@@ -33,7 +34,16 @@ function App(props: any) {
   return (
     <>
       <Routes>
-        <Route path="/" element={!isAuthenticated ? <LandingPage /> : <Navigate to="/dashboard" replace={true} />} />
+        <Route
+          path="/"
+          element={
+            !isAuthenticated ? (
+              <LandingPage />
+            ) : (
+              <Navigate to="/dashboard" replace={true} />
+            )
+          }
+        />
         <Route
           path="/login"
           element={
