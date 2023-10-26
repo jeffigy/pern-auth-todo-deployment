@@ -19,7 +19,7 @@ const InputTodo: React.FC<InputTodoProps> = ({ setTodosChange }) => {
         headers: myHeaders,
         body: JSON.stringify(body),
       });
-      window.location.href = "/";
+      //   window.location.href = "/";
       await response.json();
       setTodosChange(true);
       setDescription("");
