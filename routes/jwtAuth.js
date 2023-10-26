@@ -36,7 +36,7 @@ router.post("/register", validInfo, async (req, res) => {
     res.json({ token });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("server Error");
+    res.status(500).json("server Error");
   }
 });
 
@@ -66,7 +66,7 @@ router.post("/login", validInfo, async (req, res) => {
     res.json({ token });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("server Error");
+    res.status(500).json("server Error");
   }
 });
 
@@ -75,7 +75,7 @@ router.get("/is-verify", authorization, async (req, res) => {
     res.json(true);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("server Error");
+    res.status(500).json("server Error");
   }
 });
 module.exports = router;
