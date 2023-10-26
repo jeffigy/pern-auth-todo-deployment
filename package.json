@@ -8,7 +8,7 @@
     "npm": "9.6.7"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js && tsc",
     "dev": "nodemon index.js",
     "heroku-postbuild": "cd client && yarn install && yarn build"
   },
