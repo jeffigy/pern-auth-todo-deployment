@@ -4,8 +4,7 @@
   "main": "index.js",
   "engines": {
     "node": "18.17.1",
-    "yarn": "1.22.19",
-    "npm": "9.6.7"
+    "yarn": "1.22.19"
   },
   "scripts": {
     "start": "node index.js && tsc",
