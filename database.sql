@@ -1,5 +1,4 @@
-CREATE DATABASE authtodo;
-
+-- CREATE DATABASE authtodo;
 CREATE TABLE users (
     user_id uuid DEFAULT uuid_generate_v4(),
     user_name VARCHAR(50) NOT NULL,
@@ -16,15 +15,14 @@ CREATE TABLE todos(
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-INSERT INTO
-    users(user_name, user_email, user_password)
-VALUES
-    ('doe', 'doe@m.com', 'doe');
-
-INSERT INTO
-    todos(user_id, description)
-VALUES
-    (
-        'a5f0a115-5e25-4885-950c-190b03866456',
-        'does 1st todo'
-    );
+-- INSERT INTO
+--     users(user_name, user_email, user_password)
+-- VALUES
+--     ('doe', 'doe@m.com', 'doe');
+-- INSERT INTO
+--     todos(user_id, description)
+-- VALUES
+--     (
+--         'a5f0a115-5e25-4885-950c-190b03866456',
+--         'does 1st todo'
+--     );
