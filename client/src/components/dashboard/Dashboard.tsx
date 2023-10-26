@@ -17,7 +17,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      const res = await fetch("http://localhost:5000/dashboard/", {
+      const res = await fetch("/dashboard/", {
         method: "GET",
         headers: { token: localStorage.token },
       });
@@ -51,7 +51,6 @@ const Dashboard: React.FC<DashboardProps> = ({ setAuth }) => {
 
   return (
     <div className="flex-col mx-auto p-10 ">
-
       <div className="flex justify-between mb-5 ">
         <h1 className="text-3xl font-bold">Welcome back {name}</h1>
         <Button onClick={(e) => logOut(e)}>Log out</Button>

@@ -2,6 +2,16 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "18.17.1",
+    "yarn": "1.22.19",
+    "npm": "9.6.7"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "heroku-postbuild": "cd client && yarn install && yarn build"
+  },
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.1",
